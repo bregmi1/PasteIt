@@ -2,12 +2,15 @@ package com.regmi.bijay.pasteit.domains;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "pastes")
-public class Paste {
+public class Paste implements Serializable {
 
     @Id
     @Column(name = "paste_id")

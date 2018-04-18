@@ -2,13 +2,16 @@ package com.regmi.bijay.pasteit.domains;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
 
     @Id
     @Column(name = "user_id")
@@ -30,7 +33,7 @@ public class User {
     @Column(name = "updated_on")
     private LocalDateTime updateOn;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Paste> pastes;
 
     public Long getUserId() {
@@ -109,6 +112,8 @@ public class User {
         return Objects.hash(userId, name, email, password, createdOn, updateOn, pastes);
     }
 
+    //TODO: displaying pastes as string will throw following exception. Find out and fix it.
+    // failed to lazily initialize a collection of role: com.regmi.bijay.pasteit.domains.User.pastes, could not initialize proxy - no Session
     @Override
     public String toString() {
         return "User{" +
@@ -118,7 +123,8 @@ public class User {
                 ", password='" + password + '\'' +
                 ", createdOn=" + createdOn +
                 ", updateOn=" + updateOn +
-                ", pastes=" + pastes +
+//                ", pastes=" + pastes +
                 '}';
     }
+
 }
