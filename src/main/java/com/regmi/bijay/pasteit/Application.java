@@ -31,7 +31,7 @@ public class Application {
             public void run(String... strings) throws Exception {
                 User user = new User();
                 user.setName("Test User ");
-                user.setEmail("test@example.com");
+                user.setEmail("test@example2.com");
                 user.setPassword("password123A");
 
                 LocalDateTime now = LocalDateTime.now();
