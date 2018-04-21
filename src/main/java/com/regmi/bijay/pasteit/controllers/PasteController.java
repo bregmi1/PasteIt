@@ -1,6 +1,8 @@
 package com.regmi.bijay.pasteit.controllers;
 
 import com.regmi.bijay.pasteit.domains.Paste;
+import com.regmi.bijay.pasteit.managers.IPasteManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -10,15 +12,18 @@ import java.util.List;
 @RequestMapping("/api/v1/paste")
 public class PasteController {
 
+    @Autowired
+    private IPasteManager pasteManager;
+
     @RequestMapping(method = RequestMethod.GET)
     List<Paste> getAllPastes(){
-        return Collections.emptyList();
+        return pasteManager.getAllPastes();
     }
 
 
     @RequestMapping(value = "/{pasteId}", method = RequestMethod.GET)
     Paste getPaste(@PathVariable Long pasteId){
-        return null;
+        return pasteManager.getPasteById(pasteId);
     }
 
 
@@ -31,19 +36,19 @@ public class PasteController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     Paste createPaste(@RequestBody Paste paste){
-        return null;
+         return pasteManager.createPaste(paste);
     }
 
 
     @RequestMapping(value = "/{pasteId}", method = RequestMethod.PUT)
     Paste updatePaste(@PathVariable Long pasteId, @RequestBody Paste paste){
-        return null;
+        return pasteManager.updatePaste(pasteId, paste);
     }
 
 
     @RequestMapping(value = "/{pasteId}", method = RequestMethod.DELETE)
     Paste deletePaste(@PathVariable Long pasteId){
-        return null;
+        return pasteManager.deletePaste(pasteId);
     }
 
 
