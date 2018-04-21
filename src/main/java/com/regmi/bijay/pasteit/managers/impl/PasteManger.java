@@ -5,9 +5,11 @@ import com.regmi.bijay.pasteit.domains.Paste;
 import com.regmi.bijay.pasteit.domains.User;
 import com.regmi.bijay.pasteit.managers.IPasteManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class PasteManger implements IPasteManager {
 
     @Autowired
