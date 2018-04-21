@@ -1,7 +1,9 @@
 package com.regmi.bijay.pasteit.managers;
 
+import com.regmi.bijay.pasteit.domains.Paste;
 import com.regmi.bijay.pasteit.domains.User;
-import com.sun.tools.javac.util.List;
+
+import java.util.List;
 
 public interface IUserManager {
     List<User> getAllUsers();
@@ -9,5 +11,5 @@ public interface IUserManager {
     User createUser(User user);
     User updateUser(Long userId, User user);
     User deleteUser(Long userId);
-    User getUserByPasteId(Long pasteId);
+    User getUserByPaste(Paste paste);
 }
