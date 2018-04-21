@@ -1,6 +1,8 @@
 package com.regmi.bijay.pasteit.controllers;
 
 import com.regmi.bijay.pasteit.domains.User;
+import com.regmi.bijay.pasteit.managers.IUserManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -10,15 +12,18 @@ import java.util.List;
 @RequestMapping("/api/v1/user")
 public class UserController {
 
+    @Autowired
+    private IUserManager userManager;
+
     @RequestMapping(method = RequestMethod.GET)
     List<User> getAllUsers(){
-        return Collections.emptyList();
+        return userManager.getAllUsers();
     }
 
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     User getUser(@PathVariable Long userId){
-        return null;
+        return userManager.getUserById(userId);
     }
 
 
@@ -30,19 +35,19 @@ public class UserController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     User createUser(@RequestBody User user){
-        return null;
+        return userManager.createUser(user);
     }
 
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
     User updateUser(@PathVariable Long userId, @RequestBody User user){
-        return null;
+        return userManager.updateUser(userId, user);
     }
 
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
     User deleteUser(@PathVariable Long userId){
-        return null;
+        return userManager.deleteUser(userId);
     }
     
 }
