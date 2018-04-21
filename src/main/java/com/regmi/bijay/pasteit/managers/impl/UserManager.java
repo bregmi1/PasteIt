@@ -1,12 +1,14 @@
 package com.regmi.bijay.pasteit.managers.impl;
 
 import com.regmi.bijay.pasteit.accessors.IUserAccessor;
+import com.regmi.bijay.pasteit.converters.ILocalDateTimeConverter;
 import com.regmi.bijay.pasteit.domains.Paste;
 import com.regmi.bijay.pasteit.domains.User;
 import com.regmi.bijay.pasteit.managers.IUserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -14,6 +16,9 @@ public class UserManager implements IUserManager {
 
     @Autowired
     private IUserAccessor userAccessor;
+
+    @Autowired
+    private ILocalDateTimeConverter localDateTimeConverter;
 
 
     @Override
@@ -51,7 +56,14 @@ public class UserManager implements IUserManager {
     }
 
     @Override
-    public User getUserByPaste(Paste paste) {
-        return null;
+    public User getUserByEmail(String email) {
+        return userAccessor.findByEmail(email);
+    }
+
+    @Override
+    public List<User> getUsersByDates(Long startDate, Long endDate) {
+        LocalDateTime ldtStartDate = localDateTimeConverter.convertLongToLocalDateTime(startDate);
+        LocalDateTime ldtEndDate = localDateTimeConverter.convertLongToLocalDateTime(endDate);
+        return userAccessor.findAllByCreatedOnAfterAndCreatedOnBefore(ldtStartDate, ldtEndDate);
     }
 }

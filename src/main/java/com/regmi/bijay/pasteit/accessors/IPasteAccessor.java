@@ -14,4 +14,5 @@ public interface IPasteAccessor extends JpaRepository<Paste, Long> {
     List<Paste> findAllByExpiresOnAfterAndExpiresOnBefore(LocalDateTime startDate, LocalDateTime endDate);
 
     List<Paste> findAllByExpiresOnBefore(LocalDateTime endDate);
+
 }

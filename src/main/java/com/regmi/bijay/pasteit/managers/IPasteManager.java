@@ -11,5 +11,6 @@ public interface IPasteManager {
     Paste createPaste(Paste paste);
     Paste updatePaste(Long pasteId, Paste paste);
     Paste deletePaste(Long pasteId);
-    List<Paste> getAllPastesByUser(User user);
+    List<Paste> getPastesBetweenDates(Long startDate, Long endDate);
+    List<Paste> getPastesBeforeDate(Long endDate);
 }

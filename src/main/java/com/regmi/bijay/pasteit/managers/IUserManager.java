@@ -11,5 +11,6 @@ public interface IUserManager {
     User createUser(User user);
     User updateUser(Long userId, User user);
     User deleteUser(Long userId);
-    User getUserByPaste(Paste paste);
+    User getUserByEmail(String email);
+    List<User> getUsersByDates(Long startDate, Long endDate);
 }
