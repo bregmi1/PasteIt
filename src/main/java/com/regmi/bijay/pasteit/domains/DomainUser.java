@@ -4,14 +4,12 @@ package com.regmi.bijay.pasteit.domains;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class DomainUser implements Serializable {
 
     @Id
     @Column(name = "user_id")
@@ -33,8 +31,8 @@ public class User implements Serializable {
     @Column(name = "updated_on")
     private LocalDateTime updateOn;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Paste> pastes;
+    @OneToMany(mappedBy = "domainUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<DomainPaste> domainPastes;
 
     public Long getUserId() {
         return userId;
@@ -84,46 +82,46 @@ public class User implements Serializable {
         this.updateOn = updateOn;
     }
 
-    public Set<Paste> getPastes() {
-        return pastes;
+    public Set<DomainPaste> getDomainPastes() {
+        return domainPastes;
     }
 
-    public void setPastes(Set<Paste> pastes) {
-        this.pastes = pastes;
+    public void setDomainPastes(Set<DomainPaste> domainPastes) {
+        this.domainPastes = domainPastes;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(userId, user.userId) &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(createdOn, user.createdOn) &&
-                Objects.equals(updateOn, user.updateOn) &&
-                Objects.equals(pastes, user.pastes);
+        DomainUser domainUser = (DomainUser) o;
+        return Objects.equals(userId, domainUser.userId) &&
+                Objects.equals(name, domainUser.name) &&
+                Objects.equals(email, domainUser.email) &&
+                Objects.equals(password, domainUser.password) &&
+                Objects.equals(createdOn, domainUser.createdOn) &&
+                Objects.equals(updateOn, domainUser.updateOn) &&
+                Objects.equals(domainPastes, domainUser.domainPastes);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(userId, name, email, password, createdOn, updateOn, pastes);
+        return Objects.hash(userId, name, email, password, createdOn, updateOn, domainPastes);
     }
 
-    //TODO: displaying pastes as string will throw following exception. Find out and fix it.
-    // failed to lazily initialize a collection of role: com.regmi.bijay.pasteit.domains.User.pastes, could not initialize proxy - no Session
+    //TODO: displaying domainPastes as string will throw following exception. Find out and fix it.
+    // failed to lazily initialize a collection of role: com.regmi.bijay.pasteit.domains.DomainUser.domainPastes, could not initialize proxy - no Session
     @Override
     public String toString() {
-        return "User{" +
+        return "DomainUser{" +
                 "userId=" + userId +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", createdOn=" + createdOn +
                 ", updateOn=" + updateOn +
-//                ", pastes=" + pastes +
+//                ", domainPastes=" + domainPastes +
                 '}';
     }
 

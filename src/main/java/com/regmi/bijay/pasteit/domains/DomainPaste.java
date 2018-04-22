@@ -4,13 +4,11 @@ package com.regmi.bijay.pasteit.domains;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "pastes")
-public class Paste implements Serializable {
+public class DomainPaste implements Serializable {
 
     @Id
     @Column(name = "paste_id")
@@ -31,7 +29,7 @@ public class Paste implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private DomainUser domainUser;
 
 
     public Long getPasteId() {
@@ -74,42 +72,42 @@ public class Paste implements Serializable {
         this.updatedOn = updatedOn;
     }
 
-    public User getUser() {
-        return user;
+    public DomainUser getDomainUser() {
+        return domainUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setDomainUser(DomainUser domainUser) {
+        this.domainUser = domainUser;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Paste paste = (Paste) o;
-        return Objects.equals(pasteId, paste.pasteId) &&
-                Objects.equals(body, paste.body) &&
-                Objects.equals(expiresOn, paste.expiresOn) &&
-                Objects.equals(createdOn, paste.createdOn) &&
-                Objects.equals(updatedOn, paste.updatedOn) &&
-                Objects.equals(user, paste.user);
+        DomainPaste domainPaste = (DomainPaste) o;
+        return Objects.equals(pasteId, domainPaste.pasteId) &&
+                Objects.equals(body, domainPaste.body) &&
+                Objects.equals(expiresOn, domainPaste.expiresOn) &&
+                Objects.equals(createdOn, domainPaste.createdOn) &&
+                Objects.equals(updatedOn, domainPaste.updatedOn) &&
+                Objects.equals(domainUser, domainPaste.domainUser);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(pasteId, body, expiresOn, createdOn, updatedOn, user);
+        return Objects.hash(pasteId, body, expiresOn, createdOn, updatedOn, domainUser);
     }
 
     @Override
     public String toString() {
-        return "Paste{" +
+        return "DomainPaste{" +
                 "pasteId=" + pasteId +
                 ", body='" + body + '\'' +
                 ", expiresOn=" + expiresOn +
                 ", createdOn=" + createdOn +
                 ", updatedOn=" + updatedOn +
-                ", user=" + user +
+                ", domainUser=" + domainUser +
                 '}';
     }
 }

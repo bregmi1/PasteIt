@@ -2,8 +2,7 @@ package com.regmi.bijay.pasteit.managers.impl;
 
 import com.regmi.bijay.pasteit.accessors.IPasteAccessor;
 import com.regmi.bijay.pasteit.converters.ILocalDateTimeConverter;
-import com.regmi.bijay.pasteit.domains.Paste;
-import com.regmi.bijay.pasteit.domains.User;
+import com.regmi.bijay.pasteit.domains.DomainPaste;
 import com.regmi.bijay.pasteit.managers.IPasteManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,48 +21,48 @@ public class PasteManger implements IPasteManager {
 
 
     @Override
-    public List<Paste> getAllPastes() {
+    public List<DomainPaste> getAllPastes() {
         return pasteAccessor.findAll();
     }
 
     @Override
-    public Paste getPasteById(Long pasteId) {
+    public DomainPaste getPasteById(Long pasteId) {
         return pasteAccessor.findOne(pasteId);
     }
 
     @Override
-    public Paste createPaste(Paste paste) {
-        return pasteAccessor.save(paste);
+    public DomainPaste createPaste(DomainPaste domainPaste) {
+        return pasteAccessor.save(domainPaste);
     }
 
     @Override
-    public Paste updatePaste(Long pasteId, Paste paste) {
-        Paste currentPaste = pasteAccessor.findOne(pasteId);
-        if(currentPaste == null || !paste.getPasteId().equals(pasteId)){
+    public DomainPaste updatePaste(Long pasteId, DomainPaste domainPaste) {
+        DomainPaste currentDomainPaste = pasteAccessor.findOne(pasteId);
+        if(currentDomainPaste == null || !domainPaste.getPasteId().equals(pasteId)){
             return null;
         }
-        return pasteAccessor.save(paste);
+        return pasteAccessor.save(domainPaste);
     }
 
     @Override
-    public Paste deletePaste(Long pasteId) {
-        Paste paste = pasteAccessor.findOne(pasteId);
-        if(paste == null){
+    public DomainPaste deletePaste(Long pasteId) {
+        DomainPaste domainPaste = pasteAccessor.findOne(pasteId);
+        if(domainPaste == null){
             return null;
         }
         pasteAccessor.delete(pasteId);
-        return paste;
+        return domainPaste;
     }
 
     @Override
-    public List<Paste> getPastesBetweenDates(Long startDate, Long endDate) {
+    public List<DomainPaste> getPastesBetweenDates(Long startDate, Long endDate) {
         LocalDateTime ldtStartDate = localDateTimeConverter.convertLongToLocalDateTime(startDate);
         LocalDateTime ldtEndDate = localDateTimeConverter.convertLongToLocalDateTime(endDate);
         return pasteAccessor.findAllByExpiresOnAfterAndExpiresOnBefore(ldtStartDate, ldtEndDate);
     }
 
     @Override
-    public List<Paste> getPastesBeforeDate(Long endDate){
+    public List<DomainPaste> getPastesBeforeDate(Long endDate){
         LocalDateTime ldtEndDate = localDateTimeConverter.convertLongToLocalDateTime(endDate);
         return pasteAccessor.findAllByExpiresOnBefore(ldtEndDate);
     }

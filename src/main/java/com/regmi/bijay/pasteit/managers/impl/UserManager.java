@@ -2,8 +2,7 @@ package com.regmi.bijay.pasteit.managers.impl;
 
 import com.regmi.bijay.pasteit.accessors.IUserAccessor;
 import com.regmi.bijay.pasteit.converters.ILocalDateTimeConverter;
-import com.regmi.bijay.pasteit.domains.Paste;
-import com.regmi.bijay.pasteit.domains.User;
+import com.regmi.bijay.pasteit.domains.DomainUser;
 import com.regmi.bijay.pasteit.managers.IUserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,46 +21,46 @@ public class UserManager implements IUserManager {
 
 
     @Override
-    public List<User> getAllUsers() {
+    public List<DomainUser> getAllUsers() {
         return userAccessor.findAll();
     }
 
     @Override
-    public User getUserById(Long userId) {
+    public DomainUser getUserById(Long userId) {
         return userAccessor.findOne(userId);
     }
 
     @Override
-    public User createUser(User user) {
-        return userAccessor.save(user);
+    public DomainUser createUser(DomainUser domainUser) {
+        return userAccessor.save(domainUser);
     }
 
     @Override
-    public User updateUser(Long userId, User user) {
-        User currentUser = userAccessor.findOne(userId);
-        if(currentUser == null || !user.getUserId().equals(userId)){
+    public DomainUser updateUser(Long userId, DomainUser domainUser) {
+        DomainUser currentDomainUser = userAccessor.findOne(userId);
+        if(currentDomainUser == null || !domainUser.getUserId().equals(userId)){
             return null;
         }
-        return userAccessor.save(user);
+        return userAccessor.save(domainUser);
     }
 
     @Override
-    public User deleteUser(Long userId) {
-        User user = userAccessor.findOne(userId);
-        if(user == null){
+    public DomainUser deleteUser(Long userId) {
+        DomainUser domainUser = userAccessor.findOne(userId);
+        if(domainUser == null){
             return null;
         }
         userAccessor.delete(userId);
-        return user;
+        return domainUser;
     }
 
     @Override
-    public User getUserByEmail(String email) {
+    public DomainUser getUserByEmail(String email) {
         return userAccessor.findByEmail(email);
     }
 
     @Override
-    public List<User> getUsersByDates(Long startDate, Long endDate) {
+    public List<DomainUser> getUsersByDates(Long startDate, Long endDate) {
         LocalDateTime ldtStartDate = localDateTimeConverter.convertLongToLocalDateTime(startDate);
         LocalDateTime ldtEndDate = localDateTimeConverter.convertLongToLocalDateTime(endDate);
         return userAccessor.findAllByCreatedOnAfterAndCreatedOnBefore(ldtStartDate, ldtEndDate);

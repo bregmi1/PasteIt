@@ -1,16 +1,15 @@
 package com.regmi.bijay.pasteit.managers;
 
-import com.regmi.bijay.pasteit.domains.Paste;
-import com.regmi.bijay.pasteit.domains.User;
+import com.regmi.bijay.pasteit.domains.DomainPaste;
 
 import java.util.List;
 
 public interface IPasteManager {
-    List<Paste> getAllPastes();
-    Paste getPasteById(Long pasteId);
-    Paste createPaste(Paste paste);
-    Paste updatePaste(Long pasteId, Paste paste);
-    Paste deletePaste(Long pasteId);
-    List<Paste> getPastesBetweenDates(Long startDate, Long endDate);
-    List<Paste> getPastesBeforeDate(Long endDate);
+    List<DomainPaste> getAllPastes();
+    DomainPaste getPasteById(Long pasteId);
+    DomainPaste createPaste(DomainPaste domainPaste);
+    DomainPaste updatePaste(Long pasteId, DomainPaste domainPaste);
+    DomainPaste deletePaste(Long pasteId);
+    List<DomainPaste> getPastesBetweenDates(Long startDate, Long endDate);
+    List<DomainPaste> getPastesBeforeDate(Long endDate);
 }

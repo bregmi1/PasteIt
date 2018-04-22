@@ -1,6 +1,6 @@
 package com.regmi.bijay.pasteit.controllers;
 
-import com.regmi.bijay.pasteit.domains.Paste;
+import com.regmi.bijay.pasteit.domains.DomainPaste;
 import com.regmi.bijay.pasteit.managers.IPasteManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,38 +16,38 @@ public class PasteController {
     private IPasteManager pasteManager;
 
     @RequestMapping(method = RequestMethod.GET)
-    List<Paste> getAllPastes(){
+    List<DomainPaste> getAllPastes(){
         return pasteManager.getAllPastes();
     }
 
 
     @RequestMapping(value = "/{pasteId}", method = RequestMethod.GET)
-    Paste getPaste(@PathVariable Long pasteId){
+    DomainPaste getPaste(@PathVariable Long pasteId){
         return pasteManager.getPasteById(pasteId);
     }
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    List<Paste> getPastesByDate(@RequestParam("startDate") Long startDate,
-                                @RequestParam("endDate") Long endDate){
+    List<DomainPaste> getPastesByDate(@RequestParam("startDate") Long startDate,
+                                      @RequestParam("endDate") Long endDate){
         return Collections.emptyList();
     }
 
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    Paste createPaste(@RequestBody Paste paste){
-         return pasteManager.createPaste(paste);
+    DomainPaste createPaste(@RequestBody DomainPaste domainPaste){
+         return pasteManager.createPaste(domainPaste);
     }
 
 
     @RequestMapping(value = "/{pasteId}", method = RequestMethod.PUT)
-    Paste updatePaste(@PathVariable Long pasteId, @RequestBody Paste paste){
-        return pasteManager.updatePaste(pasteId, paste);
+    DomainPaste updatePaste(@PathVariable Long pasteId, @RequestBody DomainPaste domainPaste){
+        return pasteManager.updatePaste(pasteId, domainPaste);
     }
 
 
     @RequestMapping(value = "/{pasteId}", method = RequestMethod.DELETE)
-    Paste deletePaste(@PathVariable Long pasteId){
+    DomainPaste deletePaste(@PathVariable Long pasteId){
         return pasteManager.deletePaste(pasteId);
     }
 
