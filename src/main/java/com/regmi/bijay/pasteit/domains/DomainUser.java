@@ -5,7 +5,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -30,9 +29,6 @@ public class DomainUser implements Serializable {
 
     @Column(name = "updated_on")
     private LocalDateTime updateOn;
-
-    @OneToMany(mappedBy = "domainUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<DomainPaste> domainPastes;
 
     public Long getUserId() {
         return userId;
@@ -82,13 +78,6 @@ public class DomainUser implements Serializable {
         this.updateOn = updateOn;
     }
 
-    public Set<DomainPaste> getDomainPastes() {
-        return domainPastes;
-    }
-
-    public void setDomainPastes(Set<DomainPaste> domainPastes) {
-        this.domainPastes = domainPastes;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -100,18 +89,14 @@ public class DomainUser implements Serializable {
                 Objects.equals(email, domainUser.email) &&
                 Objects.equals(password, domainUser.password) &&
                 Objects.equals(createdOn, domainUser.createdOn) &&
-                Objects.equals(updateOn, domainUser.updateOn) &&
-                Objects.equals(domainPastes, domainUser.domainPastes);
+                Objects.equals(updateOn, domainUser.updateOn);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(userId, name, email, password, createdOn, updateOn, domainPastes);
+        return Objects.hash(userId, name, email, password, createdOn, updateOn);
     }
 
-    //TODO: displaying domainPastes as string will throw following exception. Find out and fix it.
-    // failed to lazily initialize a collection of role: com.regmi.bijay.pasteit.domains.DomainUser.domainPastes, could not initialize proxy - no Session
     @Override
     public String toString() {
         return "DomainUser{" +
@@ -121,7 +106,6 @@ public class DomainUser implements Serializable {
                 ", password='" + password + '\'' +
                 ", createdOn=" + createdOn +
                 ", updateOn=" + updateOn +
-//                ", domainPastes=" + domainPastes +
                 '}';
     }
 

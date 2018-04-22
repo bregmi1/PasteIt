@@ -27,10 +27,8 @@ public class DomainPaste implements Serializable {
     @Column(name = "updated_on")
     private LocalDateTime updatedOn;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private DomainUser domainUser;
-
+    @Column(name = "user_id")
+    private Long userId;
 
     public Long getPasteId() {
         return pasteId;
@@ -72,31 +70,30 @@ public class DomainPaste implements Serializable {
         this.updatedOn = updatedOn;
     }
 
-    public DomainUser getDomainUser() {
-        return domainUser;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setDomainUser(DomainUser domainUser) {
-        this.domainUser = domainUser;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DomainPaste domainPaste = (DomainPaste) o;
-        return Objects.equals(pasteId, domainPaste.pasteId) &&
-                Objects.equals(body, domainPaste.body) &&
-                Objects.equals(expiresOn, domainPaste.expiresOn) &&
-                Objects.equals(createdOn, domainPaste.createdOn) &&
-                Objects.equals(updatedOn, domainPaste.updatedOn) &&
-                Objects.equals(domainUser, domainPaste.domainUser);
+        DomainPaste that = (DomainPaste) o;
+        return Objects.equals(pasteId, that.pasteId) &&
+                Objects.equals(body, that.body) &&
+                Objects.equals(expiresOn, that.expiresOn) &&
+                Objects.equals(createdOn, that.createdOn) &&
+                Objects.equals(updatedOn, that.updatedOn) &&
+                Objects.equals(userId, that.userId);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(pasteId, body, expiresOn, createdOn, updatedOn, domainUser);
+        return Objects.hash(pasteId, body, expiresOn, createdOn, updatedOn, userId);
     }
 
     @Override
@@ -107,7 +104,7 @@ public class DomainPaste implements Serializable {
                 ", expiresOn=" + expiresOn +
                 ", createdOn=" + createdOn +
                 ", updatedOn=" + updatedOn +
-                ", domainUser=" + domainUser +
+                ", userId=" + userId +
                 '}';
     }
 }
