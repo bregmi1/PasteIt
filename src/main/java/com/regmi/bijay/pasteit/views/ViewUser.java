@@ -1,6 +1,5 @@
 package com.regmi.bijay.pasteit.views;
 
-
 import java.util.Objects;
 
 public class ViewUser {
@@ -10,6 +9,8 @@ public class ViewUser {
     private String name;
 
     private String email;
+
+    private String password;
 
     private Long createdOn;
 
@@ -37,6 +38,15 @@ public class ViewUser {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
     public Long getCreatedOn() {
         return createdOn;
     }
@@ -53,13 +63,14 @@ public class ViewUser {
         return Objects.equals(userId, viewUser.userId) &&
                 Objects.equals(name, viewUser.name) &&
                 Objects.equals(email, viewUser.email) &&
+                Objects.equals(password, viewUser.password) &&
                 Objects.equals(createdOn, viewUser.createdOn);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(userId, name, email, createdOn);
+        return Objects.hash(userId, name, email, password, createdOn);
     }
 
     @Override
@@ -68,6 +79,7 @@ public class ViewUser {
                 "userId=" + userId +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", createdOn=" + createdOn +
                 '}';
     }

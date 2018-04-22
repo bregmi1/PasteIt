@@ -1,6 +1,8 @@
 package com.regmi.bijay.pasteit.views;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
+
 
 public class ViewPaste {
 
@@ -10,9 +12,11 @@ public class ViewPaste {
 
     private Long expiresOn;
 
+    private Long createdOn;
+
     private Long updatedOn;
 
-    private ViewUser viewUser;
+    private Long userId;
 
     public Long getPasteId() {
         return pasteId;
@@ -38,6 +42,14 @@ public class ViewPaste {
         this.expiresOn = expiresOn;
     }
 
+    public Long getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
+    }
+
     public Long getUpdatedOn() {
         return updatedOn;
     }
@@ -46,12 +58,12 @@ public class ViewPaste {
         this.updatedOn = updatedOn;
     }
 
-    public ViewUser getViewUser() {
-        return viewUser;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setViewUser(ViewUser viewUser) {
-        this.viewUser = viewUser;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -62,13 +74,14 @@ public class ViewPaste {
         return Objects.equals(pasteId, viewPaste.pasteId) &&
                 Objects.equals(body, viewPaste.body) &&
                 Objects.equals(expiresOn, viewPaste.expiresOn) &&
+                Objects.equals(createdOn, viewPaste.createdOn) &&
                 Objects.equals(updatedOn, viewPaste.updatedOn) &&
-                Objects.equals(viewUser, viewPaste.viewUser);
+                Objects.equals(userId, viewPaste.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pasteId, body, expiresOn, updatedOn, viewUser);
+        return Objects.hash(pasteId, body, expiresOn, createdOn, updatedOn, userId);
     }
 
     @Override
@@ -77,8 +90,9 @@ public class ViewPaste {
                 "pasteId=" + pasteId +
                 ", body='" + body + '\'' +
                 ", expiresOn=" + expiresOn +
+                ", createdOn=" + createdOn +
                 ", updatedOn=" + updatedOn +
-                ", viewUser=" + viewUser +
+                ", userId=" + userId +
                 '}';
     }
 }
