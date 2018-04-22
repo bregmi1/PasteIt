@@ -1,15 +1,15 @@
 package com.regmi.bijay.pasteit.managers;
 
-import com.regmi.bijay.pasteit.domains.DomainUser;
+import com.regmi.bijay.pasteit.views.ViewUser;
 
 import java.util.List;
 
 public interface IUserManager {
-    List<DomainUser> getAllUsers();
-    DomainUser getUserById(Long userId);
-    DomainUser createUser(DomainUser domainUser);
-    DomainUser updateUser(Long userId, DomainUser domainUser);
-    DomainUser deleteUser(Long userId);
-    DomainUser getUserByEmail(String email);
-    List<DomainUser> getUsersByDates(Long startDate, Long endDate);
+    List<ViewUser> getAllUsers();
+    ViewUser getUserById(Long userId);
+    ViewUser createUser(ViewUser viewUser);
+    ViewUser updateUser(Long userId, ViewUser viewUser);
+    ViewUser deleteUser(Long userId);
+    ViewUser getUserByEmail(String email);
+    List<ViewUser> getUsersByDates(Long startDate, Long endDate);
 }

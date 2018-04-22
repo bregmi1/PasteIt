@@ -1,13 +1,16 @@
 package com.regmi.bijay.pasteit.converters.impl;
 
+import com.regmi.bijay.pasteit.Application;
 import com.regmi.bijay.pasteit.converters.ILocalDateTimeConverter;
 import com.regmi.bijay.pasteit.converters.IUserConverter;
 import com.regmi.bijay.pasteit.domains.DomainUser;
 import com.regmi.bijay.pasteit.views.ViewUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Service
 public class UserConverter implements IUserConverter {
 
     @Autowired
@@ -35,7 +38,7 @@ public class UserConverter implements IUserConverter {
     @Override
     public ViewUser domainToView(DomainUser domainUser) {
         ViewUser viewUser = new ViewUser();
-        viewUser.setUserId(viewUser.getUserId());
+        viewUser.setUserId(domainUser.getUserId());
         viewUser.setName(domainUser.getName());
         viewUser.setEmail(domainUser.getEmail());
         viewUser.setCreatedOn(localDateTimeConverter.convertLocalDateTimeToLong(domainUser.getCreatedOn()));

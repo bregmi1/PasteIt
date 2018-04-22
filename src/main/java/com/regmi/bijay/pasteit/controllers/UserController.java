@@ -2,6 +2,7 @@ package com.regmi.bijay.pasteit.controllers;
 
 import com.regmi.bijay.pasteit.domains.DomainUser;
 import com.regmi.bijay.pasteit.managers.IUserManager;
+import com.regmi.bijay.pasteit.views.ViewUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,37 +16,37 @@ public class UserController {
     private IUserManager userManager;
 
     @RequestMapping(method = RequestMethod.GET)
-    List<DomainUser> getAllUsers(){
+    List<ViewUser> getAllUsers(){
         return userManager.getAllUsers();
     }
 
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-    DomainUser getUser(@PathVariable Long userId){
+    ViewUser getUser(@PathVariable Long userId){
         return userManager.getUserById(userId);
     }
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    DomainUser getUserByEmail(@RequestParam String email){
+    ViewUser getUserByEmail(@RequestParam String email){
         return null;
     }
 
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    DomainUser createUser(@RequestBody DomainUser domainUser){
-        return userManager.createUser(domainUser);
+    ViewUser createUser(@RequestBody ViewUser viewUser){
+        return userManager.createUser(viewUser);
     }
 
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
-    DomainUser updateUser(@PathVariable Long userId, @RequestBody DomainUser domainUser){
-        return userManager.updateUser(userId, domainUser);
+    ViewUser updateUser(@PathVariable Long userId, @RequestBody ViewUser viewUser){
+        return userManager.updateUser(userId, viewUser);
     }
 
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
-    DomainUser deleteUser(@PathVariable Long userId){
+    ViewUser deleteUser(@PathVariable Long userId){
         return userManager.deleteUser(userId);
     }
     

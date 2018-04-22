@@ -5,9 +5,11 @@ import com.regmi.bijay.pasteit.converters.IPasteConverter;
 import com.regmi.bijay.pasteit.domains.DomainPaste;
 import com.regmi.bijay.pasteit.views.ViewPaste;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Service
 public class PasteConverter implements IPasteConverter {
 
     @Autowired
