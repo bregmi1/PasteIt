@@ -9,6 +9,8 @@ import com.regmi.bijay.pasteit.views.ViewPaste;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityNotFoundException;
+import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,19 +38,29 @@ public class PasteManger implements IPasteManager {
 
     @Override
     public ViewPaste getPasteById(Long pasteId) {
-        return pasteConverter.domainToView(pasteAccessor.findOne(pasteId));
+        DomainPaste domainPaste = pasteAccessor.findOne(pasteId);
+        if(domainPaste == null){
+            throw new EntityNotFoundException("Unable to retrieve the paste with id: " + pasteId.toString());
+        }
+        return pasteConverter.domainToView(domainPaste);
     }
 
     @Override
     public ViewPaste createPaste(ViewPaste viewPaste) {
+        if(viewPaste == null){
+            throw new InvalidParameterException("Provided null paste for creation");
+        }
         return pasteConverter.domainToView(pasteAccessor.save(pasteConverter.viewToDomain(viewPaste)));
     }
 
     @Override
     public ViewPaste updatePaste(Long pasteId, ViewPaste viewPaste) {
         DomainPaste currentDomainPaste = pasteAccessor.findOne(pasteId);
-        if(currentDomainPaste == null || !viewPaste.getPasteId().equals(pasteId)){
-            return null;
+        if(currentDomainPaste == null){
+            throw new EntityNotFoundException("Unable to retrieve the paste with id: " + pasteId.toString());
+        } else if(!viewPaste.getPasteId().equals(pasteId)){
+            throw new InvalidParameterException("Provided paste id: " + pasteId +
+                    " does not match with provided paste: " + viewPaste.toString());
         }
         return pasteConverter.domainToView(pasteAccessor.save(pasteConverter.viewToDomain(viewPaste)));
     }
@@ -57,7 +69,7 @@ public class PasteManger implements IPasteManager {
     public ViewPaste deletePaste(Long pasteId) {
         DomainPaste domainPaste = pasteAccessor.findOne(pasteId);
         if(domainPaste == null){
-            return null;
+            throw new EntityNotFoundException("Unable to retrieve the paste with id: " + pasteId.toString());
         }
         pasteAccessor.delete(pasteId);
         return pasteConverter.domainToView(domainPaste);

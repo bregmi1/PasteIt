@@ -1,6 +1,5 @@
 package com.regmi.bijay.pasteit.managers;
 
-import com.regmi.bijay.pasteit.domains.DomainPaste;
 import com.regmi.bijay.pasteit.views.ViewPaste;
 
 import java.util.List;

@@ -4,6 +4,8 @@ import com.regmi.bijay.pasteit.domains.DomainUser;
 import com.regmi.bijay.pasteit.managers.IUserManager;
 import com.regmi.bijay.pasteit.views.ViewUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,38 +18,38 @@ public class UserController {
     private IUserManager userManager;
 
     @RequestMapping(method = RequestMethod.GET)
-    List<ViewUser> getAllUsers(){
-        return userManager.getAllUsers();
+    ResponseEntity<List<ViewUser>> getAllUsers(){
+        return new ResponseEntity<>(userManager.getAllUsers(), HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-    ViewUser getUser(@PathVariable Long userId){
-        return userManager.getUserById(userId);
+    ResponseEntity<ViewUser> getUser(@PathVariable Long userId){
+        return new ResponseEntity<>(userManager.getUserById(userId), HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    ViewUser getUserByEmail(@RequestParam String email){
-        return null;
+    ResponseEntity<ViewUser> getUserByEmail(@RequestParam String email){
+        return new ResponseEntity<>(userManager.getUserByEmail(email), HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    ViewUser createUser(@RequestBody ViewUser viewUser){
-        return userManager.createUser(viewUser);
+    ResponseEntity<ViewUser> createUser(@RequestBody ViewUser viewUser){
+        return new ResponseEntity<>(userManager.createUser(viewUser), HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
-    ViewUser updateUser(@PathVariable Long userId, @RequestBody ViewUser viewUser){
-        return userManager.updateUser(userId, viewUser);
+    ResponseEntity<ViewUser> updateUser(@PathVariable Long userId, @RequestBody ViewUser viewUser){
+        return new ResponseEntity<>(userManager.updateUser(userId, viewUser), HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
-    ViewUser deleteUser(@PathVariable Long userId){
-        return userManager.deleteUser(userId);
+    ResponseEntity<ViewUser> deleteUser(@PathVariable Long userId){
+        return new ResponseEntity<>(userManager.deleteUser(userId), HttpStatus.OK);
     }
     
 }
