@@ -9,6 +9,8 @@ import com.regmi.bijay.pasteit.views.ViewUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityNotFoundException;
+import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,20 +37,29 @@ public class UserManager implements IUserManager {
 
     @Override
     public ViewUser getUserById(Long userId) {
-        return userConverter.domainToView(userAccessor.findOne(userId));
+        DomainUser user = userAccessor.findOne(userId);
+        if(user == null){
+            throw new EntityNotFoundException("Unable to retrieve the user with id: " + userId.toString());
+        }
+        return userConverter.domainToView(user);
     }
 
     @Override
     public ViewUser createUser(ViewUser viewUser) {
+        if(viewUser == null){
+            throw new InvalidParameterException("Provided null user for creation");
+        }
         return userConverter.domainToView(userAccessor.save(userConverter.viewToDomain(viewUser)));
     }
 
     @Override
     public ViewUser updateUser(Long userId, ViewUser viewUser) {
         DomainUser currentDomainUser = userAccessor.findOne(userId);
-        if(currentDomainUser == null || !viewUser.getUserId().equals(userId)){
-            return null;
-        }
+        if(currentDomainUser == null){
+            throw new EntityNotFoundException("Unable to retrieve the user with id: " + userId.toString());
+        } else if(! viewUser.getUserId().equals(userId)){
+            throw new InvalidParameterException("Provided user id: " + userId.toString() +
+                    " does not match with provided user: " + viewUser.toString());        }
         return userConverter.domainToView(userAccessor.save(userConverter.viewToDomain(viewUser)));
     }
 
@@ -56,7 +67,7 @@ public class UserManager implements IUserManager {
     public ViewUser deleteUser(Long userId) {
         DomainUser domainUser = userAccessor.findOne(userId);
         if(domainUser == null){
-            return null;
+            throw new EntityNotFoundException("Unable to retrieve the user with id: " + userId.toString());
         }
         userAccessor.delete(userId);
         return userConverter.domainToView(domainUser);
@@ -64,7 +75,11 @@ public class UserManager implements IUserManager {
 
     @Override
     public ViewUser getUserByEmail(String email) {
-        return userConverter.domainToView(userAccessor.findByEmail(email));
+        DomainUser user = userAccessor.findByEmail(email);
+        if(user == null){
+            throw new EntityNotFoundException("Unable to retrieve the user with email: " + email);
+        }
+        return userConverter.domainToView(user);
     }
 
     @Override

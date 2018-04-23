@@ -1,4 +1,4 @@
-package com.regmi.bijay.pasteit.controllers;
+package com.regmi.bijay.pasteit.controllers.v1;
 
 import com.regmi.bijay.pasteit.converters.ILocalDateTimeConverter;
 import com.regmi.bijay.pasteit.managers.IPasteManager;

@@ -59,7 +59,7 @@ public class PasteManger implements IPasteManager {
         if(currentDomainPaste == null){
             throw new EntityNotFoundException("Unable to retrieve the paste with id: " + pasteId.toString());
         } else if(!viewPaste.getPasteId().equals(pasteId)){
-            throw new InvalidParameterException("Provided paste id: " + pasteId +
+            throw new InvalidParameterException("Provided paste id: " + pasteId.toString() +
                     " does not match with provided paste: " + viewPaste.toString());
         }
         return pasteConverter.domainToView(pasteAccessor.save(pasteConverter.viewToDomain(viewPaste)));
