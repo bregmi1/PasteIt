@@ -15,6 +15,9 @@ public class DomainPaste implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pasteId;
 
+    @Column(name="title")
+    private String title;
+
     @Column(name = "body")
     private String body;
 
@@ -36,6 +39,14 @@ public class DomainPaste implements Serializable {
 
     public void setPasteId(Long pasteId) {
         this.pasteId = pasteId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getBody() {
@@ -84,6 +95,7 @@ public class DomainPaste implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         DomainPaste that = (DomainPaste) o;
         return Objects.equals(pasteId, that.pasteId) &&
+                Objects.equals(title, that.title) &&
                 Objects.equals(body, that.body) &&
                 Objects.equals(expiresOn, that.expiresOn) &&
                 Objects.equals(createdOn, that.createdOn) &&
@@ -93,13 +105,15 @@ public class DomainPaste implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(pasteId, body, expiresOn, createdOn, updatedOn, userId);
+
+        return Objects.hash(pasteId, title, body, expiresOn, createdOn, updatedOn, userId);
     }
 
     @Override
     public String toString() {
         return "DomainPaste{" +
                 "pasteId=" + pasteId +
+                ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
                 ", expiresOn=" + expiresOn +
                 ", createdOn=" + createdOn +

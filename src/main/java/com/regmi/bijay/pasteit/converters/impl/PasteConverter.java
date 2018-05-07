@@ -20,6 +20,7 @@ public class PasteConverter implements IPasteConverter {
     public DomainPaste viewToDomain(ViewPaste viewPaste) {
         DomainPaste domainPaste = new DomainPaste();
         domainPaste.setPasteId(viewPaste.getPasteId());
+        domainPaste.setTitle(viewPaste.getTitle());
         domainPaste.setBody(viewPaste.getBody());
         domainPaste.setUserId(viewPaste.getUserId());
         domainPaste.setExpiresOn(localDateTimeConverter.convertLongToLocalDateTime(viewPaste.getExpiresOn()));
@@ -38,9 +39,11 @@ public class PasteConverter implements IPasteConverter {
     public ViewPaste domainToView(DomainPaste domainPaste) {
         ViewPaste viewPaste = new ViewPaste();
         viewPaste.setPasteId(domainPaste.getPasteId());
+        viewPaste.setTitle(domainPaste.getTitle());
         viewPaste.setBody(domainPaste.getBody());
         viewPaste.setExpiresOn(localDateTimeConverter.convertLocalDateTimeToLong(domainPaste.getExpiresOn()));
         viewPaste.setUpdatedOn(localDateTimeConverter.convertLocalDateTimeToLong(domainPaste.getUpdatedOn()));
+        viewPaste.setCreatedOn(localDateTimeConverter.convertLocalDateTimeToLong(domainPaste.getCreatedOn()));
         viewPaste.setUserId(domainPaste.getUserId());
         return viewPaste;
     }

@@ -6,6 +6,7 @@ import com.regmi.bijay.pasteit.converters.IUserConverter;
 import com.regmi.bijay.pasteit.domains.DomainUser;
 import com.regmi.bijay.pasteit.views.ViewUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,13 +17,16 @@ public class UserConverter implements IUserConverter {
     @Autowired
     private ILocalDateTimeConverter localDateTimeConverter;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public DomainUser viewToDomain(ViewUser viewUser) {
         DomainUser domainUser = new DomainUser();
         domainUser.setUserId(viewUser.getUserId());
         domainUser.setEmail(viewUser.getEmail());
         domainUser.setName(viewUser.getName());
-        domainUser.setPassword(viewUser.getPassword());
+        domainUser.setPassword(passwordEncoder.encode(viewUser.getPassword()));
 
         LocalDateTime now = LocalDateTime.now();
         domainUser.setUpdateOn(now);

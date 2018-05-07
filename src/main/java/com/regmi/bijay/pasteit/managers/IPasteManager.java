@@ -2,6 +2,7 @@ package com.regmi.bijay.pasteit.managers;
 
 import com.regmi.bijay.pasteit.views.ViewPaste;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface IPasteManager {
@@ -12,4 +13,5 @@ public interface IPasteManager {
     ViewPaste deletePaste(Long pasteId);
     List<ViewPaste> getPastesBetweenDates(Long startDate, Long endDate);
     List<ViewPaste> getPastesBeforeDate(Long endDate);
+    List<ViewPaste> getAllPastesByUserId(Long userId);
 }

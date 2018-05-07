@@ -1,0 +1,12 @@
+## config context path to "/" by setting an empty string
+#server:
+#  contextPath: /api/v1/
+
+pasteit:
+  header: Authorization
+  secret: mySecret
+  expiration: 604800
+  route:
+    authentication:
+      path: auth
+      refresh: refresh

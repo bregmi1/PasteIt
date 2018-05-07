@@ -13,4 +13,6 @@ public interface IPasteAccessor extends JpaRepository<DomainPaste, Long> {
 
     List<DomainPaste> findAllByExpiresOnBefore(LocalDateTime endDate);
 
+    List<DomainPaste> findAllByUserId(Long userId);
+
 }

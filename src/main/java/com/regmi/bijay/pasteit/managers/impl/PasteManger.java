@@ -1,16 +1,20 @@
 package com.regmi.bijay.pasteit.managers.impl;
 
 import com.regmi.bijay.pasteit.accessors.IPasteAccessor;
+import com.regmi.bijay.pasteit.accessors.IUserAccessor;
 import com.regmi.bijay.pasteit.converters.ILocalDateTimeConverter;
 import com.regmi.bijay.pasteit.converters.IPasteConverter;
 import com.regmi.bijay.pasteit.domains.DomainPaste;
+import com.regmi.bijay.pasteit.domains.DomainUser;
 import com.regmi.bijay.pasteit.managers.IPasteManager;
 import com.regmi.bijay.pasteit.views.ViewPaste;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.naming.AuthenticationException;
 import javax.persistence.EntityNotFoundException;
 import java.security.InvalidParameterException;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +26,9 @@ public class PasteManger implements IPasteManager {
     private IPasteAccessor pasteAccessor;
 
     @Autowired
+    private IUserAccessor userAccessor;
+
+    @Autowired
     private ILocalDateTimeConverter localDateTimeConverter;
 
     @Autowired
@@ -29,7 +36,7 @@ public class PasteManger implements IPasteManager {
 
 
     @Override
-    public List<ViewPaste> getAllPastes() {
+    public List<ViewPaste> getAllPastes(){
         return pasteAccessor.findAll()
                 .stream()
                 .map(pasteConverter::domainToView)
@@ -88,6 +95,13 @@ public class PasteManger implements IPasteManager {
     public List<ViewPaste> getPastesBeforeDate(Long endDate){
         LocalDateTime ldtEndDate = localDateTimeConverter.convertLongToLocalDateTime(endDate);
         return pasteAccessor.findAllByExpiresOnBefore(ldtEndDate).stream()
+                .map(pasteConverter::domainToView)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ViewPaste> getAllPastesByUserId(Long userId) {
+        return pasteAccessor.findAllByUserId(userId).stream()
                 .map(pasteConverter::domainToView)
                 .collect(Collectors.toList());
     }

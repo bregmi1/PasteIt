@@ -8,6 +8,8 @@ public class ViewPaste {
 
     private Long pasteId;
 
+    private String title;
+
     private String body;
 
     private Long expiresOn;
@@ -24,6 +26,14 @@ public class ViewPaste {
 
     public void setPasteId(Long pasteId) {
         this.pasteId = pasteId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getBody() {
@@ -72,6 +82,7 @@ public class ViewPaste {
         if (o == null || getClass() != o.getClass()) return false;
         ViewPaste viewPaste = (ViewPaste) o;
         return Objects.equals(pasteId, viewPaste.pasteId) &&
+                Objects.equals(title, viewPaste.title) &&
                 Objects.equals(body, viewPaste.body) &&
                 Objects.equals(expiresOn, viewPaste.expiresOn) &&
                 Objects.equals(createdOn, viewPaste.createdOn) &&
@@ -81,13 +92,15 @@ public class ViewPaste {
 
     @Override
     public int hashCode() {
-        return Objects.hash(pasteId, body, expiresOn, createdOn, updatedOn, userId);
+
+        return Objects.hash(pasteId, title, body, expiresOn, createdOn, updatedOn, userId);
     }
 
     @Override
     public String toString() {
         return "ViewPaste{" +
                 "pasteId=" + pasteId +
+                ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
                 ", expiresOn=" + expiresOn +
                 ", createdOn=" + createdOn +
